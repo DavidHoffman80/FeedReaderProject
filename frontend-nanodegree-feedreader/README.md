@@ -26,3 +26,8 @@ In this project you are given a web-based application that reads RSS feeds. The 
 20. Implement error handling for undefined variables and out-of-bound array access.
 21. When complete - all of your tests should pass.
 22. Write a README file detailing all steps required to successfully run the application. If you have added additional tests (for Udacious Test Coverage), provide documentation for what these future features are and what the tests are checking for.
+
+### Instructions
+* Clone this repository.
+* Open repository.
+* Open index.html with your preferred browser.
