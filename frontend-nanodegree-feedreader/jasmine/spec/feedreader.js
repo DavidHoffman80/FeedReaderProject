@@ -14,43 +14,36 @@ $(function() {
     * feeds definitions, the allFeeds variable in our application.
     */
     describe('RSS Feeds', function() {
-        /* This is our first test - it tests to make sure that the
-         * allFeeds variable has been defined and that it is not
-         * empty. Experiment with this before you get started on
-         * the rest of this project. What happens when you change
-         * allFeeds in app.js to be an empty array and refresh the
-         * page?
-         */
+
         it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
-
+        /*
+        This test is used to make sure that the allFeeds.url
+        exhists and is longer than 0.
+        */
          function urlTest(allFeedsItem) {
             it(`should have a url of: ${allFeedsItem.url}`, function() {
-                expect(allFeedsItem.url).toBeDefined();
-                expect(allFeedsItem.url.length).not.toBe(0);
+                expect(allFeedsItem.url).toBeTruthy();
             });
          }
 
-         /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
-
+         /*
+        This test is used to make sure that the allFeeds.name
+        exhists and is longer than 0.
+        */
          function nameTest(allFeedsName) {
             it(`should have a name of: ${allFeedsName.name}`, function() {
-                expect(allFeedsName.name).toBeDefined();
-                expect(allFeedsName.name.length).not.toBe(0);
+                expect(allFeedsName.name).toBeTruthy();
             })
          }
-		
+        
+         /*
+         this loops through the allFeeds array and calls the
+         2 above functions.
+         */
 		for(var i = 0; i < allFeeds.length; i++) {
             urlTest(allFeeds[i]);
             nameTest(allFeeds[i]);
@@ -58,89 +51,74 @@ $(function() {
         
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
-
+    // The menu test suit
     describe('The menu', function() {
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
-
+        /*
+        This test makes sure that the menu is hidden by default.
+        */
          it('should be hidden by default', function() {
-            expect($('body')[0].className).toEqual('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
          });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
-
+         /*
+         This test makes sure that when the menu button is clicked
+         the menu becomes visible and when it is clicked again the
+         menu is hidden again.
+         */
           it('should show when clicked and hide when re-clicked', function() {
               let $menuLink = $('.menu-icon-link');
               $menuLink.trigger('click');
-              expect($('body')[0].className).toBe('');
+              expect($('body').hasClass('menu-hidden')).toBe(false);
               $menuLink.trigger('click');
-              expect($('body')[0].className).toBe('menu-hidden');
+              expect($('body').hasClass('menu-hidden')).toBe(true);
           });
 
     });
 
-        
-
-         
-
-    /* TODO: Write a new test suite named "Initial Entries" */
-
+    // Initial Entries test suit
     describe('Initial Entries', function() {
 
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-
+        /*
+        Before the test, call the loadFeed function and pass in done().
+        */
          beforeEach(function(done) {
-             loadFeed(0, function() {
-                done();
-             });
+             loadFeed(0, done);
          });
 
+         /*
+         make sure that at least 1 entry is placed into the .feed container.
+         */
          it('have at least 1 entry', function(done) {
              expect($('.feed .entry').length).toBeGreaterThan(0);
              done();
          });
     });
 
-        
-
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
+    // New Feed Selection test suit
     describe('New Feed Selection', function() {
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
-
+        // The 2 variables used in the async call
         let feedOne;
         let feedTwo;
 
+        /*
+        before the test call the loadFeed function, I set the feedOne variable to the html inside of the .feed container.
+        Then I call loadFeed again(nested) and set the variable feedTwo to the html inside of the .feed container.
+        */
         beforeEach(function(done) {
             loadFeed(0, function() {
                 feedOne = $('.feed').html();
-                done();
-            });
-            loadFeed(1, function() {
-                feedTwo = $('.feed').html();
-                done();
+                loadFeed(1, function() {
+                    feedTwo = $('.feed').html();
+                    done();
+                });
             });
         });
 
+        /*
+        This test compares feedOne to feedTwo and makes sure that they are different from eachother.
+        */
         it('content should change', function(done) {
             expect(feedOne).not.toEqual(feedTwo);
             done();
