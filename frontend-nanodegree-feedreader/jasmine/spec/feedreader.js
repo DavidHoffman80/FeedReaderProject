@@ -51,7 +51,7 @@ $(function() {
         
     });
 
-    // The menu test suit
+    // The menu test suite
     describe('The menu', function() {
 
         /*
@@ -76,7 +76,7 @@ $(function() {
 
     });
 
-    // Initial Entries test suit
+    // Initial Entries test suite
     describe('Initial Entries', function() {
 
         /*
@@ -95,7 +95,7 @@ $(function() {
          });
     });
 
-    // New Feed Selection test suit
+    // New Feed Selection test suite
     describe('New Feed Selection', function() {
 
         // The 2 variables used in the async call
